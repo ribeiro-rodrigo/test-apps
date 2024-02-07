@@ -7,7 +7,7 @@ function(spec, metadata) {
 
     local options = if std.get(metadata.opts.dns_cache, "force_tcp", default=false) then baseOptions + [{name: "use-vc"}] else baseOptions,
 
-    return: spec.withDnsPolicy("none") + 
+    return: spec.withDnsPolicy("None") + 
             spec.dnsConfig.withNameservers(["169.254.20.10"]) + 
             spec.dnsConfig.withSearches(["cluster.local"]) + 
             spec.dnsConfig.withOptions(options), 
