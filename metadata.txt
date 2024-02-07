@@ -1,0 +1,1 @@
+{"labels":{"cluster":"prod-cops-1","namespace":"foundation","app":"calopsita","alias":"app-01"},"opts":{"anti_affinity":true,"termination_grace_period_seconds":10,"workload":"compute","dns_cache":{"enabled":true,"force_tcp":false}}}

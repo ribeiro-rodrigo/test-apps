@@ -4,7 +4,7 @@
         {
             "name": "app-01-container-01", 
             "image": {
-              "address": "docker.io/image01", 
+              "address": "nginx:latest", 
               "pull_always": false 
             }, 
             "command": "sleep 300", 
