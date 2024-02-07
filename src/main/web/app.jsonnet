@@ -2,7 +2,7 @@ local k = import "github.com/jsonnet-libs/k8s-libsonnet/1.26/main.libsonnet";
 local copsDeployment = import "../functions/deployment/deployment.libsonnet"; 
 
 function(payload, metadata) 
-    copsDeployment(k, std.parseJson(payload), std.parseJson(metadata)).return
+    copsDeployment(k, payload, metadata).return
 
 
 
