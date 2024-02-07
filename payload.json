@@ -1,0 +1,61 @@
+{  
+
+    "containers": [
+        {
+            "name": "app-01-container-01", 
+            "image": {
+              "address": "docker.io/image01", 
+              "pull_always": false 
+            }, 
+            "command": "sleep 300", 
+            "cpu": {
+              "limit": {
+                "value": 10, 
+                "unit": "percent"
+              }, 
+              "reservation" : {
+                "value": 5, 
+                "unit": "percent"
+              }
+            }, 
+            "memory": {
+              "limit": {
+                "value": "250", 
+                "unit": "M"
+              }, 
+              "reservation": {
+                "value": "100", 
+                "unit": "M"
+              }
+            }, 
+            "environments": [
+                {
+                  "type": "secret",
+                  "name": "DB_HOST",
+                  "value": "db.example.com"
+                }
+              ],
+            "ports": [
+                {
+                    "default": false,
+                    "port": 80,
+                    "protocol": "http"
+                  }
+            ], 
+            "healthcheck": {
+                "type": "network",
+                "command": "echo healthy",
+                "path": "/healthcheck",
+                "protocol": "http",
+                "port": 80,
+                "timeout": 2,
+                "interval": 30,
+                "initial_interval": 60,
+                "threshold": {
+                  "failure": 2,
+                  "success": 1
+                }
+              }
+        }
+    ]
+}
