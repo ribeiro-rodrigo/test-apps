@@ -5,7 +5,7 @@ local dnsFactory = import "./dns.libsonnet";
 function(k, payload, metadata){
     local deployment = k.apps.v1.deployment, 
     local dep = deployment.new(metadata.labels.alias, replicas=0, podLabels=metadata.labels, containers=containerFactory(k, payload, metadata).return) +
-    deployment.metadata.withLabels(metadata) + 
+    deployment.metadata.withLabels(metadata.labels) + 
     deployment.spec.withRevisionHistoryLimit(4) + 
     deployment.spec.strategy.withType("RollingUpdate") + 
     deployment.spec.strategy.rollingUpdate.withMaxSurge("50%") + 
