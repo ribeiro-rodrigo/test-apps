@@ -9,9 +9,16 @@
         "anti_affinity": true, 
         "termination_grace_period_seconds": 10, 
         "workload": "compute", 
+        "assume_role": "role-arn", 
+        "custom_metrics": {
+            "enabled": true, 
+            "port": 8080, 
+            "path": "/custom_metrics"
+        }, 
         "dns_cache" : {
             "enabled": true, 
             "force_tcp": false 
-        }
+        }, 
+        "disruption_budget": "60%"
     }
 }

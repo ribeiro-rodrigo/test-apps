@@ -19,8 +19,13 @@ function(k, payload, metadata){
         "kaas.olxbr.io/workload": metadata.opts.workload,
     }) + 
     (if std.get(metadata.opts, "dns_cache", default=null) != null && std.get(metadata.opts.dns_cache, "enabled", default=true) then 
-        dnsFactory(deployment.spec.template.spec, metadata).return else {}), 
+        dnsFactory(deployment.spec.template.spec, metadata).return else {}) + 
+    (if std.get(metadata.opts, "custom_metrics", default=null) != null then deployment.spec.template.metadata.withAnnotations({
+        "prometheus.io/scrape": metadata.opts.custom_metrics.enabled, 
+        "prometheus.io/port": metadata.opts.custom_metrics.port, 
+        "prometheus.io/path": metadata.opts.custom_metrics.path,
+    }) else {}), 
     
 
-    return: [dep]
+    return: dep
 }
