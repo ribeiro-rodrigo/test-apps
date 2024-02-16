@@ -1,4 +1,30 @@
 {  
+    "traits": [
+      {
+        "type": "role", 
+        "properties": {
+          "arn": "arn://blabla"
+        }
+      }, 
+      {
+        "type": "replicas", 
+        "properties": {
+          "value": 3 
+        }
+      }, 
+      {
+        "type": "ingress", 
+        "properties": {
+          "host": "myapp.olxbr.cloud"
+        }
+      }, 
+      {
+        "type": "cors", 
+        "properties": {
+          "hearders": "all"
+        }
+      }
+    ], 
 
     "containers": [
         {

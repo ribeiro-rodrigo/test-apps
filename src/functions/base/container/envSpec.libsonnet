@@ -1,12 +1,12 @@
 function(uuid, environments){
     local envs = [   
         {
-            name: env.name, 
-            [if env.type == "value" then "value"]: env.value, 
+            name: env.properties.name, 
+            [if env.type == "value" then "value"]: env.properties.value, 
             [if env.type == "secret" then "valueFrom"]: {
                 secretKeyRef: {
                     name: "es-"+uuid, 
-                    key: env.name 
+                    key: env.properties.name 
                 },
             },
         }

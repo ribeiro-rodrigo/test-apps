@@ -2,7 +2,7 @@ local envSpec = import "./envSpec.libsonnet";
 local probesSpec = import "./probes.libsonnet"; 
 local resources = import "./resources.libsonnet"; 
 
-function(k, payload, metadata){
+/*function(k, payload, metadata){
     local container = k.core.v1.container, 
 
     local containers = [
@@ -22,4 +22,16 @@ function(k, payload, metadata){
     ], 
 
     return: containers, 
+} */
+
+function(k, payload, metadata){
+    local container = k.core.v1.container, 
+    local properties = payload.properties, 
+
+    return: container.new(metadata.labels.alias, properties.image.address)+ 
+            (if std.get(properties, "command", default=null) != null then container.withCommand(properties.command) else {}) + 
+            container.withEnv(envSpec(metadata.labels.app, properties.environments).return) + 
+            container.resources.withLimits(resources(properties.resources).limits) + 
+            container.resources.withRequests(resources(properties.resources).requests) + 
+            if properties.image.pull_always then container.withImagePullPolicy("Always") else container.withImagePullPolicy("IfNotPresent")
 }
