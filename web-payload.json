@@ -86,6 +86,7 @@
         {
             "type": "ingress",
             "properties": {
+                "class": "nginx", 
                 "private": { 
                     "endpoints": [
                         {
@@ -95,6 +96,15 @@
                                 "port": 80, 
                                 "domain": "olxbr.cloud",
                                 "path": "/teste"
+                            }
+                        }, 
+                        {
+                            "type": "http", 
+                            "properties": {
+                                "host": "testmginxcopsapps",
+                                "port": 8080, 
+                                "domain": "olxbr.cloud",
+                                "path": "/health"
                             }
                         }, 
                         {

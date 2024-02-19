@@ -1,3 +1,0 @@
-jsonnet --tla-code-file payload=payload.json --tla-code-file metadata=metadata.json  src/main/web/app.jsonnet -J vendor
-
-jsonnet --tla-str-file payload=payload.txt --tla-str-file metadata=metadata.txt  src/main/web/app.jsonnet -J vendor
