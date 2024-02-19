@@ -1,4 +1,5 @@
-local makeRules = import "./funcs/make_rule.libsonnet"; 
+local makeRules = import "./funcs/make_rule.libsonnet";
+local makeAnnotations = import "./funcs/make_annotations.libsonnet";  
 
 function(k, trait, payload, metadata){
 
@@ -16,6 +17,8 @@ function(k, trait, payload, metadata){
 
     local httpIngress = std.map(function(e) 
         ingress.new("http-"+metadata.labels.app) + 
+        ingress.metadata.withAnnotations(makeAnnotations("http", trait.properties.class, "private", metadata).return) + 
+        ingress.spec.withIngressClassName(trait.properties.class) + 
         ingress.metadata.withLabels(metadata.labels) + 
         makeRules(ingress, httpHosts, httpEndpoints, metadata)
     ,httpHosts), 
@@ -25,6 +28,8 @@ function(k, trait, payload, metadata){
 
     local grpcIngress = std.map(function(e)
         ingress.new("grpc-"+metadata.labels.app) + 
+        ingress.metadata.withAnnotations(makeAnnotations("GRPC", trait.properties.class, "private", metadata).return) +
+        ingress.spec.withIngressClassName(trait.properties.class) + 
         ingress.metadata.withLabels(metadata.labels) + 
         makeRules(ingress, grpcHosts, grpcEndpoints, metadata)
     ,grpcHosts), 

@@ -86,7 +86,7 @@
         {
             "type": "ingress",
             "properties": {
-                "class": "nginx", 
+                "class": "alb", 
                 "private": { 
                     "endpoints": [
                         {

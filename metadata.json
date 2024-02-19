@@ -5,6 +5,7 @@
         "app": "calopsita", 
         "alias": "app-01"
     }, 
+    "internal_host_domain": "cops.olxbr.cloud", 
     "opts": {
         "anti_affinity": true, 
         "termination_grace_period_seconds": 10, 
