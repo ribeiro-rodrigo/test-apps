@@ -1,39 +1,27 @@
 local makeRules = import "./funcs/make_rule.libsonnet";
 local makeAnnotations = import "./funcs/make_annotations.libsonnet";  
+local ingresGenerator = import "./funcs/ingress_gen_func.libsonnet"; 
 
 function(k, trait, payload, metadata){
 
     local ingress = k.networking.v1.ingress, 
 
-    local filterProtocol = function(protocol, endpoints)
-        std.filter(function(e) e.type == protocol, endpoints), 
-    
-    local groupHosts = function(endpoints)
-        std.map(function(x) x.properties.host + "." + x.properties.domain, std.set(endpoints, keyF=function(x) x.properties.host + "." + x.properties.domain)),
+    local privateIngress = ingresGenerator(
+        ingress, 
+        "private", 
+        trait.properties.class, 
+        trait.properties.private.endpoints, 
+        metadata
+    ).return, 
 
+    local publicIngress = ingresGenerator(
+        ingress, 
+        "public", 
+        trait.properties.class, 
+        trait.properties.public.endpoints, 
+        metadata
+    ).return, 
 
-    local httpEndpoints = filterProtocol("http", trait.properties.private.endpoints), 
-    local httpHosts = groupHosts(httpEndpoints), 
-
-    local httpIngress = std.map(function(e) 
-        ingress.new("http-"+metadata.labels.app) + 
-        ingress.metadata.withAnnotations(makeAnnotations("http", trait.properties.class, "private", metadata).return) + 
-        ingress.spec.withIngressClassName(trait.properties.class) + 
-        ingress.metadata.withLabels(metadata.labels) + 
-        makeRules(ingress, httpHosts, httpEndpoints, metadata)
-    ,httpHosts), 
-
-    local grpcEndpoints = filterProtocol("grpc", trait.properties.private.endpoints), 
-    local grpcHosts = groupHosts(grpcEndpoints), 
-
-    local grpcIngress = std.map(function(e)
-        ingress.new("grpc-"+metadata.labels.app) + 
-        ingress.metadata.withAnnotations(makeAnnotations("GRPC", trait.properties.class, "private", metadata).return) +
-        ingress.spec.withIngressClassName(trait.properties.class) + 
-        ingress.metadata.withLabels(metadata.labels) + 
-        makeRules(ingress, grpcHosts, grpcEndpoints, metadata)
-    ,grpcHosts), 
-
-    return: httpIngress + grpcIngress, 
+    return: privateIngress + publicIngress
 
 }

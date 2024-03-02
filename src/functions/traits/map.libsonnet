@@ -6,6 +6,14 @@ local serviceIngressFactory = import "./ingress/service.libsonnet";
 local ingressFactory = import "./ingress/ingress.libsonnet"; 
 local ingressDepTransform = import "./ingress/dep_transform.libsonnet"; 
 
+local healthcheckIngTransform = import "./healthcheck/ing_transform.libsonnet"; 
+local healthcheckDepTransform = import "./healthcheck/dep_transform.libsonnet"; 
+
+local corsIngTransform = import "./cors/ing_transform.libsonnet"; 
+
+local roleSAFactory = import "./role/sa_transform.libsonnet"; 
+
+
 function(){
     transform: {
         Deployment:[
@@ -20,6 +28,26 @@ function(){
             {
                 name: "ingress", 
                 func: ingressDepTransform
+            },
+            {
+                name: "healthcheck", 
+                func: healthcheckDepTransform
+            },
+        ],
+        Ingress:[
+            {
+                name: "healthcheck", 
+                func: healthcheckIngTransform
+            },
+            {
+                name: "cors", 
+                func: corsIngTransform
+            },
+        ],
+        ServiceAccount: [
+            {
+                name: "role", 
+                func: roleSAFactory
             },
         ],
     }, 
