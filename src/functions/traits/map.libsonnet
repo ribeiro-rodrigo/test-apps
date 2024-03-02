@@ -13,6 +13,8 @@ local corsIngTransform = import "./cors/ing_transform.libsonnet";
 
 local roleSAFactory = import "./role/sa_transform.libsonnet"; 
 
+local antiAffinityDepTransform = import "./anti_affinity/dep_transform.libsonnet";
+
 
 function(){
     transform: {
@@ -32,6 +34,10 @@ function(){
             {
                 name: "healthcheck", 
                 func: healthcheckDepTransform
+            },
+            {
+                name: "anti_affinity", 
+                func: antiAffinityDepTransform
             },
         ],
         Ingress:[

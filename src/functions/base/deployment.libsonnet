@@ -1,5 +1,4 @@
-local containerFactory = import "../container/containers.libsonnet"; 
-local affinityFactory = import "./affinity.libsonnet"; 
+local containerFactory = import "./container/containers.libsonnet"; 
 
 function(k, payload, metadata){
     local deployment = k.apps.v1.deployment, 
@@ -10,8 +9,6 @@ function(k, payload, metadata){
     deployment.spec.strategy.withType("RollingUpdate") + 
     deployment.spec.strategy.rollingUpdate.withMaxSurge("50%") + 
     deployment.spec.strategy.rollingUpdate.withMaxUnavailable(0) + 
-    (if std.get(metadata.opts,"anti_affinity", default=false) then 
-        affinityFactory(deployment.spec.template.spec.affinity.podAntiAffinity, payload, metadata).return else {}) +
     (if std.get(payload.properties, "termination_timeout_seconds", default=-1) > -1 then 
         deployment.spec.template.spec.withTerminationGracePeriodSeconds(payload.properties.termination_timeout_seconds) else {}) + 
     deployment.spec.template.spec.withServiceAccountName(metadata.labels.app) +  
