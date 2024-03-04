@@ -1,0 +1,111 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application 
+metadata:
+  name: cops-cron-jsonnet
+  namespace: argocd 
+spec:
+  destination:
+    namespace: jsonnet 
+    server: "https://kubernetes.default.svc"
+  project: default 
+  source:
+    path: src/main
+    repoURL: "https://github.com/ribeiro-rodrigo/test-apps.git"
+    targetRevision: teste 
+    directory:
+      jsonnet:
+        tlas:
+          - name: payload
+            code: true
+            value: |
+              {
+                  "type": "scheduler",
+                  "properties": {
+                      "image": {
+                          "address": "nginx:latest", 
+                          "pull_always": false 
+                      },
+                      "command": "sleep 300", 
+                      "cron": "*/15 * * * *", 
+                      "concurrencyPolicy": "Replace", 
+                      "startingDeadlineSeconds": 5, 
+                      "suspended": false, 
+                      "maxRetries": 5, 
+                      "workload": "compute", 
+                      "resources":[
+                          {
+                              "type": "cpu", 
+                              "properties": {
+                                  "limit": {
+                                      "value": 10, 
+                                      "unit": "percent"
+                                  }, 
+                                  "request" : {
+                                      "value": 5, 
+                                      "unit": "percent"
+                                  }
+                              }
+                          }, 
+                          {
+                              "type": "memory", 
+                              "properties": {
+                                  "limit": {
+                                      "value": "250", 
+                                      "unit": "M"
+                                  }, 
+                                  "request": {
+                                      "value": "100", 
+                                      "unit": "M"
+                                  }
+                              }
+                          }
+                      ], 
+                      "environments": [
+                          {
+                              "type": "value",
+                              "properties": {
+                                  "name": "DB_HOST",
+                                  "value": "db.example.com"
+                              }
+                          }
+                      ]
+                  },
+                  "traits": [
+
+                      {
+                          "type": "dns_cache", 
+                          "properties": {
+                              "force_tcp": true 
+                          }
+                      }, 
+                      {
+                          "type": "role", 
+                          "properties": {
+                              "arn": "arn:myrolearn"
+                          }
+                      }
+                  ]   
+              }
+
+          - name: metadata
+            code: true
+            value: |
+                {
+                    "team": {
+                        "squad_uuid": "uuid-foundation", 
+                        "workspace_uuid": "uuid-workspace-foundation"
+                    }, 
+                    "labels": {
+                        "cluster": "prod-cops-1", 
+                        "namespace": "foundation", 
+                        "app": "calopsita", 
+                        "alias": "app-01"
+                    }, 
+                    "internal_host_domain": "cops.olxbr.cloud", 
+                    "workload_type": "CronJob"
+                }
+        libs:
+          - vendor
+  syncPolicy:
+    syncOptions: 
+      - CreateNamespace=true
