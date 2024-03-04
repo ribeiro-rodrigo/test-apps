@@ -1,4 +1,4 @@
-metadata.json
-payload.json
 command.txt
-web-payload.json
+*.json
+!jsonnetfile.json 
+!jsonnetfile.lock.json
