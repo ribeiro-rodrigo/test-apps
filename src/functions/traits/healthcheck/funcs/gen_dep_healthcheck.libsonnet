@@ -10,7 +10,7 @@ function(healthcheck){
             command: healthcheck.protocol.properties.command 
         },
         [if healthcheck.protocol.type == "http" then "httpGet"]: {
-            schema: "HTTP", 
+            scheme: "HTTP", 
             path: healthcheck.protocol.properties.path, 
             port: healthcheck.protocol.properties.port
         },
