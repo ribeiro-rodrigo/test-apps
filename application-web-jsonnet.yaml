@@ -71,8 +71,8 @@ spec:
                       {
                           "type": "autoscaling", 
                           "properties": {
-                              "min": 2, 
-                              "max": 2, 
+                              "min": 1, 
+                              "max": 1, 
                               "threshold_cpu_unit": "percent", 
                               "threshold_cpu_value": 80, 
                               "threshold_memory_unit": "percent", 
@@ -94,7 +94,7 @@ spec:
                                           "properties": {
                                               "host": "meudomain",
                                               "port": 80, 
-                                              "domain": "olxbr.cloud",
+                                              "domain": "foundation.prod.olxbr.io",
                                               "path": "/"
                                           }
                                       }, 
@@ -103,7 +103,7 @@ spec:
                                           "properties": {
                                               "host": "testmginxcopsapps",
                                               "port": 80, 
-                                              "domain": "olxbr.cloud",
+                                              "domain": "foundation.prod.olxbr.io",
                                               "path": "/teste"
                                           }
                                       }, 
@@ -112,7 +112,7 @@ spec:
                                           "properties": {
                                               "host": "testmginxcopsapps",
                                               "port": 8080, 
-                                              "domain": "olxbr.cloud",
+                                              "domain": "foundation.prod.olxbr.io",
                                               "path": "/health"
                                           }
                                       }, 
@@ -121,7 +121,7 @@ spec:
                                           "properties": {
                                               "host": "grpc-testmginxcopsapps",
                                               "port": 5646, 
-                                              "domain": "olxbr.cloud"
+                                              "domain": "foundation.prod.olxbr.io"
                                           }
                                       } 
                                   ]
@@ -133,7 +133,7 @@ spec:
                                           "properties": {
                                               "host": "mypublic",
                                               "port": 80, 
-                                              "domain": "olx.com.br",
+                                              "domain": "foundation.prod.olxbr.io",
                                               "path": "/"
                                           }
                                       }
@@ -189,7 +189,7 @@ spec:
                               "protocol": {
                                   "type": "http", 
                                   "properties": {
-                                      "path": "/healthcheck", 
+                                      "path": "/", 
                                       "timeout": 3, 
                                       "port": 8080, 
                                       "command": "echo alo mundo"
