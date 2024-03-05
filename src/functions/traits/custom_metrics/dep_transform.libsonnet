@@ -3,7 +3,7 @@ function(k, deployment, trait, payload, metadata){
 
     return: deployment + dep.spec.template.metadata.withAnnotations({
         "prometheus.io/scrape": true, 
-        "prometheus.io/port": trait.properties.port, 
+        "prometheus.io/port": std.toString(trait.properties.port), 
         "prometheus.io/path": trait.properties.path,
     })
 }

@@ -6,13 +6,13 @@ function(k, ing, trait, payload, metadata) {
         ing + ingress.metadata.withAnnotations(
             ing.metadata.annotations + 
             {
-                "alb.ingress.kubernetes.io/healthcheck-port": p.protocol.properties.port, 
+                "alb.ingress.kubernetes.io/healthcheck-port": std.toString(p.protocol.properties.port), 
                 "alb.ingress.kubernetes.io/healthcheck-protocol": p.protocol.type, 
                 [if p.protocol.type == "http" then "alb.ingress.kubernetes.io/healthcheck-path"]: p.protocol.properties.path,
-                "alb.ingress.kubernetes.io/healthcheck-interval-seconds": p.interval_seconds, 
-                "alb.ingress.kubernetes.io/healthcheck-timeout-seconds": p.timeout_seconds, 
-                "alb.ingress.kubernetes.io/healthy-threshold-count": p.threshold_success, 
-                "alb.ingress.kubernetes.io/unhealthy-threshold-count": p.threshold_failure
+                "alb.ingress.kubernetes.io/healthcheck-interval-seconds": std.toString(p.interval_seconds), 
+                "alb.ingress.kubernetes.io/healthcheck-timeout-seconds": std.toString(p.timeout_seconds), 
+                "alb.ingress.kubernetes.io/healthy-threshold-count": std.toString(p.threshold_success), 
+                "alb.ingress.kubernetes.io/unhealthy-threshold-count": std.toString(p.threshold_failure)
 
             },
         )
