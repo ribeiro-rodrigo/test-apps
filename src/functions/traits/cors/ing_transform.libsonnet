@@ -6,7 +6,7 @@ function(k, ing, trait, payload, metadata) {
         ing + ingress.metadata.withAnnotations(
             ing.metadata.annotations + 
             {
-                "nginx.ingress.kubernetes.io/enable-cors": true, 
+                "nginx.ingress.kubernetes.io/enable-cors": 'true', 
                 "nginx.ingress.kubernetes.io/cors-allow-methods": std.join(",", p.allowed_methods), 
                 "nginx.ingress.kubernetes.io/cors-allow-headers": std.join(",", p.allowed_headers),
                 "nginx.ingress.kubernetes.io/cors-max-age": p.max_age, 
