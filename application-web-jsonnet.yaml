@@ -185,7 +185,7 @@ spec:
                               "interval_seconds": 30, 
                               "timeout_seconds": 3, 
                               "threshold_failure": 2, 
-                              "threshold_success": 1, 
+                              "threshold_success": 2, 
                               "protocol": {
                                   "type": "http", 
                                   "properties": {

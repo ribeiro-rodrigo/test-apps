@@ -23,5 +23,5 @@ function(healthcheck){
     },
 
     readinessProbe: probe, 
-    livenessProbe: probe
+    livenessProbe: probe + {successThreshold+: 1},
 }
