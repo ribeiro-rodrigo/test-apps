@@ -3,7 +3,7 @@ local containerFactory = import "./container/containers.libsonnet";
 function(k, payload, metadata){
     local deployment = k.apps.v1.deployment, 
 
-    local dep = deployment.new(metadata.labels.alias, replicas=payload.properties.replicas, podLabels=metadata.labels, containers=containerFactory(k, payload, metadata).return) +
+    local dep = deployment.new(metadata.labels.app, replicas=payload.properties.replicas, podLabels=metadata.labels, containers=containerFactory(k, payload, metadata).return) +
     deployment.metadata.withLabels(metadata.labels) + 
     deployment.spec.withRevisionHistoryLimit(4) + 
     deployment.spec.strategy.withType("RollingUpdate") + 
