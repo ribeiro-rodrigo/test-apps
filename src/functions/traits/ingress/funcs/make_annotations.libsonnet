@@ -7,7 +7,7 @@ function(protocol, class, tier, metadata){
             "external-dns.alpha.kubernetes.io/ingress-hostname-source": "annotation-only",
         },
         nginx: {
-            //"kubernetes.io/tls-acme": "true", 
+            "kubernetes.io/tls-acme": "true", 
             "prometheus.io/probe": "true",
         },
         alb: {
