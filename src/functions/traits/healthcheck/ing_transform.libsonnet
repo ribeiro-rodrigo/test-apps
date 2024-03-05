@@ -7,7 +7,10 @@ function(k, ing, trait, payload, metadata) {
             ing.metadata.annotations + 
             {
                 "alb.ingress.kubernetes.io/healthcheck-port": std.toString(p.protocol.properties.port), 
-                "alb.ingress.kubernetes.io/healthcheck-protocol": std.asciiUpper(p.protocol.type), 
+                [if p.protocol.type == "http" then "alb.ingress.kubernetes.io/healthcheck-protocol"]: std.asciiUpper(p.protocol.type),
+                "alb.ingress.kubernetes.io/backend-protocol": "HTTP", 
+                [if p.protocol.type == "http" then "alb.ingress.kubernetes.io/backend-protocol-version"]: "HTTP1", 
+                [if p.protocol.type == "grpc" then "alb.ingress.kubernetes.io/backend-protocol-version"]: "GRPC", 
                 [if p.protocol.type == "http" then "alb.ingress.kubernetes.io/healthcheck-path"]: p.protocol.properties.path,
                 "alb.ingress.kubernetes.io/healthcheck-interval-seconds": std.toString(p.interval_seconds), 
                 "alb.ingress.kubernetes.io/healthcheck-timeout-seconds": std.toString(p.timeout_seconds), 
