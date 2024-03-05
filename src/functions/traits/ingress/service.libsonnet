@@ -8,7 +8,7 @@ function(k, trait, payload, metadata){
         {app: metadata.labels.app}, 
         std.map(
             function(endpoint) {
-                name: endpoint.type, port: endpoint.properties.port, targetPort: endpoint.properties.port
+                port: endpoint.properties.port, targetPort: endpoint.properties.port
             },all_endpoints(trait)
         )
     ) + 
