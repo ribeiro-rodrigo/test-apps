@@ -28,7 +28,7 @@ spec:
                       "replicas": 1,
                       "termination_timeout_seconds": 60,  
                       "disruption_budget": "60%", 
-                      "workload": "compute", 
+                      "workload": "general", 
                       "resources":[
                           {
                               "type": "cpu", 
@@ -111,7 +111,7 @@ spec:
                                           "type": "http", 
                                           "properties": {
                                               "host": "testmginxcopsapps",
-                                              "port": 8080, 
+                                              "port": 80, 
                                               "domain": "foundation.prod.olxbr.io",
                                               "path": "/health"
                                           }
@@ -191,7 +191,7 @@ spec:
                                   "properties": {
                                       "path": "/", 
                                       "timeout": 3, 
-                                      "port": 8080, 
+                                      "port": 80, 
                                       "command": "echo alo mundo"
                                   }
                               }

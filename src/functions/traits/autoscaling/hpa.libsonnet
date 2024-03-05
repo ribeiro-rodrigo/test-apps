@@ -12,16 +12,6 @@ function(k, trait, payload, metadata){
                 {
                     type: "Resource", 
                     resource: {
-                        name: "cpu", 
-                        target: {
-                            type: "Utilization", 
-                            averageUtilization: trait.properties.threshold_cpu_value
-                        },
-                    }
-                },
-                {
-                    type: "Resource", 
-                    resource: {
                         name: "memory", 
                         target: {
                             type: "Utilization", 
@@ -29,6 +19,16 @@ function(k, trait, payload, metadata){
                         },
                     } 
                 },
+                {
+                    type: "Resource", 
+                    resource: {
+                        name: "cpu", 
+                        target: {
+                            type: "Utilization", 
+                            averageUtilization: trait.properties.threshold_cpu_value
+                        },
+                    }
+                }
             ])
         ]
     
