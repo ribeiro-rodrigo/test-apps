@@ -8,9 +8,10 @@ function(k, trait, payload, metadata){
         {app: metadata.labels.app}, 
         std.map(
             function(endpoint) {
-                port: endpoint.properties.port, targetPort: endpoint.properties.port
+            name: endpoint.type + "-" + endpoint.properties.port, port: endpoint.properties.port, targetPort: endpoint.properties.port
             },all_endpoints(trait)
         )
     ) + 
-    svc.metadata.withLabels(metadata.labels)]
+    svc.metadata.withLabels(metadata.labels) + 
+    svc.spec.withSelector(metadata.labels)]
 }
