@@ -127,18 +127,8 @@ spec:
                                   ]
                               }, 
                               "public": {
-                                  "endpoints": [
-                                      {
-                                          "type": "http", 
-                                          "properties": {
-                                              "host": "mypublic",
-                                              "port": 80, 
-                                              "domain": "foundation.prod.olxbr.io",
-                                              "path": "/"
-                                          }
-                                      }
-                                  ]
-                              } 
+                                "endpoints": []
+                              }
                           }
                       }, 
                       {

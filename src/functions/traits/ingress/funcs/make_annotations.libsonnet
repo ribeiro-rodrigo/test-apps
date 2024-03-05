@@ -3,7 +3,7 @@ function(protocol, class, tier, metadata){
         all: {
             "external-dns.alpha.kubernetes.io/aws-weight": "100",
             "external-dns.alpha.kubernetes.io/set-identifier": metadata.labels.cluster,
-            "external-dns.alpha.kubernetes.io/hostname": "internal-" + metadata.labels.app + "" + metadata.internal_host_domain,
+            "external-dns.alpha.kubernetes.io/hostname": "internal-" + metadata.labels.app + "." + metadata.internal_host_domain,
             "external-dns.alpha.kubernetes.io/ingress-hostname-source": "annotation-only",
         },
         nginx: {
