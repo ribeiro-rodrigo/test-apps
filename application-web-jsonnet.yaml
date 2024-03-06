@@ -86,7 +86,7 @@ spec:
                       {
                           "type": "ingress",
                           "properties": {
-                              "class": "private", 
+                              "class": "nginx", 
                               "private": { 
                                   "endpoints": [
                                       {
