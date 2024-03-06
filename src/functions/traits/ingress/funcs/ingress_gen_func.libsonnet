@@ -13,10 +13,12 @@ function(ingress, tier, class, endpoints, metadata){
     local httpEndpoints = filterProtocol("http", endpoints), 
     local httpHosts = groupHosts(httpEndpoints), 
 
+    local resolveClass = if class == "nginx" then tier else class, 
+
     local httpIngress = if httpEndpoints != [] then
         [ingress.new("http-"+tier+"-"+metadata.labels.app) + 
         ingress.metadata.withAnnotations(makeAnnotations("http", class, tier, metadata).return) + 
-        ingress.spec.withIngressClassName(class) + 
+        ingress.spec.withIngressClassName(resolveClass) + 
         ingress.metadata.withLabels(metadata.labels) + 
         makeRules(ingress, httpHosts, httpEndpoints, metadata)] else [],
 
@@ -26,7 +28,7 @@ function(ingress, tier, class, endpoints, metadata){
     local grpcIngress = if grpcEndpoints != [] then
         [ingress.new("grpc-"+tier+"-"+metadata.labels.app) + 
         ingress.metadata.withAnnotations(makeAnnotations("GRPC", class, tier, metadata).return) +
-        ingress.spec.withIngressClassName(class) + 
+        ingress.spec.withIngressClassName(resolveClass) + 
         ingress.metadata.withLabels(metadata.labels) + 
         makeRules(ingress, grpcHosts, grpcEndpoints, metadata)] else [],
 

@@ -86,7 +86,7 @@ spec:
                       {
                           "type": "ingress",
                           "properties": {
-                              "class": "alb", 
+                              "class": "private", 
                               "private": { 
                                   "endpoints": [
                                       {
