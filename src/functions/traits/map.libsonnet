@@ -53,7 +53,7 @@ function(){
             },
             {   
                 //TODO - It should always be the last trait on the list 
-                name: "ingress_classifier", 
+                name: "ingress-classifier", 
                 func: ingressClassifierIngTransform
             },
         ],
