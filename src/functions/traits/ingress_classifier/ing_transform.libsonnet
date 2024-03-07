@@ -7,7 +7,7 @@ function(k, ing, trait, payload, metadata){
             apiVersion: "cops.olxbr.cloud/v1alpha1", 
             kind: "HorizontalALBAutoscaler", 
             metadata: {
-                name: "haa-" + metadata.labels.app
+                name: "haa-" + ing.metadata.name
             },
             spec: {
                 class: if tier != "internal" then "external" + trait.properties.class else tier + trait.properties.class, 
