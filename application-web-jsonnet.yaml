@@ -84,9 +84,15 @@ spec:
                           }
                       }, 
                       {
+                        "type": "ingress-classifier", 
+                        "properties": {
+                            "class": "general"
+                        }
+                      }, 
+                      {
                           "type": "ingress",
                           "properties": {
-                              "class": "nginx", 
+                              "class": "alb", 
                               "private": { 
                                   "endpoints": [
                                       {

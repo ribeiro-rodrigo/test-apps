@@ -1,5 +1,5 @@
 function(k, ing, trait, payload, metadata){
-    local tier = std.get(ing.metadata.annotation, "alb.ingress.kubernetes.io/scheme", default=null), 
+    local tier = std.get(ing.metadata.annotations, "alb.ingress.kubernetes.io/scheme", default=null), 
     
     return: if ing.spec.ingressClassName != "alb" || tier == null  
         then ing else 
