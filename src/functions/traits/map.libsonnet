@@ -15,6 +15,8 @@ local roleSAFactory = import "./role/sa_transform.libsonnet";
 
 local antiAffinityDepTransform = import "./anti_affinity/dep_transform.libsonnet";
 
+local ingressClassifierIngTransform = import "./ingress_classifier/ing_transform.libsonnet";
+
 
 function(){
     transform: {
@@ -48,6 +50,11 @@ function(){
             {
                 name: "cors", 
                 func: corsIngTransform
+            },
+            {   
+                //TODO - It should always be the last trait on the list 
+                name: "ingress_classifier", 
+                func: ingressClassifierIngTransform
             },
         ],
         ServiceAccount: [
