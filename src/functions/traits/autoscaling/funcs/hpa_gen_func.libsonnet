@@ -8,28 +8,25 @@ function(k, trait, payload, metadata){
             hpa.spec.withScaleTargetRef({kind: "Deployment", metadata: {name: metadata.labels.app}, apiVersion: "apps/v1"}) + 
             hpa.spec.withMinReplicas(trait.properties.min) + 
             hpa.spec.withMaxReplicas(trait.properties.max) + 
-            hpa.spec.withMetrics([
-                {
-                    type: "Resource", 
-                    resource: {
-                        name: "memory", 
-                        target: {
-                            type: "Utilization", 
-                            averageUtilization: trait.properties.threshold_memory_value
+            hpa.spec.withMetrics(
+                std.filterMap(
+                    function(e) 
+                        e.type == "cpu_utilization" || e.type == "memory_utilization", 
+                    function(e)
+                        {
+                            type: "Resource", 
+                            resource: {
+                                name: std.strReplace(e.type, "_utilization", ""), 
+                                target: {
+                                    type: "Utilization",
+                                    [if e.type == "cpu_utilization" then "averageUtilization"]: e.properties.threshold_cpu_value,
+                                    [if e.type == "memory_utilization" then "averageUtilization"]: e.properties.threshold_memory_value
+                                },
+                            },
                         },
-                    } 
-                },
-                {
-                    type: "Resource", 
-                    resource: {
-                        name: "cpu", 
-                        target: {
-                            type: "Utilization", 
-                            averageUtilization: trait.properties.threshold_cpu_value
-                        },
-                    }
-                }
-            ])
+                        trait.properties.policies
+                ) 
+            )
         ]
     
 }
