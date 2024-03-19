@@ -7,7 +7,7 @@ function(healthcheck){
         successThreshold: if std.get(healthcheck, "threshold_success", default=null) != null then healthcheck.threshold_success else null,
         failureThreshold: if std.get(healthcheck, "threshold_failure", default=null) != null then healthcheck.threshold_failure else null,
         [if healthcheck.protocol.type == "command" then "exec"]: {
-            command: healthcheck.protocol.properties.command 
+            command: std.split(healthcheck.protocol.properties.command, " ") 
         },
         [if healthcheck.protocol.type == "http" then "httpGet"]: {
             scheme: "HTTP", 
