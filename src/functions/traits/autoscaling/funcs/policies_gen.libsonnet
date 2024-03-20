@@ -4,7 +4,7 @@ function(){
                     type: "cpu", 
                     metricType: "Utilization", 
                     metadata: {
-                        value: policy.properties.threshold_cpu_value
+                        value: std.toString(policy.properties.threshold_cpu_value)
                     }
                 },
     },
@@ -14,7 +14,7 @@ function(){
                     type: "memory", 
                     metricType: "Utilization", 
                     metadata: {
-                        value: policy.properties.threshold_memory_value
+                        value: std.toString(policy.properties.threshold_memory_value)
                     }
                 },
     },
