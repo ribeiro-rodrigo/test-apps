@@ -8,6 +8,6 @@ function(k, payload, metadata){
             std.get(map.creation, trait.type, default=null) != null, 
         function(trait) 
             std.flattenArrays([f(k, trait, payload, metadata).return for f in map.creation[trait.type]]),
-        payload.traits
+        payload.properties.traits
     ))
 }

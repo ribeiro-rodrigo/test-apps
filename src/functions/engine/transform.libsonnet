@@ -11,11 +11,11 @@ function(manifests, k, payload, metadata){
                         std.filterMap(
                             function(ob) 
                                 std.count(
-                                    std.map(function(t) t.type, payload.traits), ob.name
+                                    std.map(function(t) t.type, payload.properties.traits), ob.name
                                 ) > 0, 
                             function(ob){
                                 object: ob, 
-                                trait: std.filter(function(t) t.type == ob.name, payload.traits)[0],
+                                trait: std.filter(function(t) t.type == ob.name, payload.properties.traits)[0],
                             },
                             map.transform[m.kind]
                         ),  
