@@ -2,7 +2,7 @@ function(k, ing, trait, payload, metadata) {
     local ingress = k.networking.v1.ingress,
     local p = trait.properties, 
 
-    local newIng = if ing.spec.ingressClassName == "nginx" then 
+    local newIng = if ing.spec.ingressClassName == "private" || ing.spec.ingressClassName == "public" then 
         ing + ingress.metadata.withAnnotations(
             ing.metadata.annotations + 
             {
